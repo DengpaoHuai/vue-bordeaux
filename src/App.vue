@@ -1,19 +1,22 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import HelloWorld from './components/HelloWorld.vue';
+const demo = "toto"
+
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
   <main>
-    <TheWelcome />
+    <HelloWorld :demo="demo">
+      <template #header>
+        <h2>mon header</h2>
+      </template>
+      <template #default>
+        <p>content</p>
+      </template>
+      <template #footer>
+        <p>footer</p>
+      </template>
+    </HelloWorld>
   </main>
 </template>
 
