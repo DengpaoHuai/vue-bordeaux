@@ -2,6 +2,8 @@
 import { onBeforeMount, onMounted, onUnmounted, onUpdated } from 'vue';
 import CounterView from './components/CounterView.vue';
 import HelloWorld from './components/HelloWorld.vue';
+import PlanetView from './views/PlanetView.vue';
+import PeopleView from './views/PeopleView.vue';
 const demo = "toto"
 
 
@@ -27,6 +29,12 @@ onUnmounted(() => {
 <template>
   <main>
     <CounterView></CounterView>
+    <PlanetView></PlanetView>
+    <PlanetView></PlanetView>
+    <PlanetView></PlanetView>
+    <PlanetView></PlanetView>
+    <PlanetView></PlanetView>
+    <PeopleView></PeopleView>
   </main>
 </template>
 
