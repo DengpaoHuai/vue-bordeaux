@@ -30,11 +30,7 @@ onUnmounted(() => {
   <main>
     <CounterView></CounterView>
     <PlanetView></PlanetView>
-    <PlanetView></PlanetView>
-    <PlanetView></PlanetView>
-    <PlanetView></PlanetView>
-    <PlanetView></PlanetView>
-    <PeopleView></PeopleView>
+
   </main>
 </template>
 

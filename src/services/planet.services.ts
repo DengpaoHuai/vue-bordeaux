@@ -6,27 +6,45 @@
     console.log('c finiiii')
   })*/
 
+type Planet = {
+  name: string
+  diameter: string
+  climate: string
+  terrain: string
+  population: string
+  gravity: string
+  orbital_period: string
+  rotation_period: string
+  surface_water: string
+  films: string[]
+  residents: string[]
+  created: string
+  edited: string
+  url: string
+}
+
+type PlanetResponse = {
+  count: number
+  next: string | undefined
+  previous: string | undefined
+  results: Planet[]
+}
+
+type GetDataFn = () => Promise<PlanetResponse>
+
 export const getData = async () => {
   const response = await fetch('https://swapi.dev/api/planets')
-  const results = await response.json()
-  console.log('là')
+  const results: PlanetResponse = await response.json()
   return results
 }
 
-export const createPlanet = async (planet) => {
-  const response = await fetch('https://swapi.dev/api/planets', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(planet)
-  })
-  return await response.json()
-}
+const demo = await getData()
 
-export const deletePlanet = async (id) => {
+type DeletePlanetFn = (id: string) => Promise<void>
+
+export const deletePlanet = async (id: string) => {
   const response = await fetch(`https://swapi.dev/api/planets/${id}`, {
     method: 'DELETE'
   })
-  return await response.json()
+  await response.json()
 }
