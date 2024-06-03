@@ -1,22 +1,32 @@
 <script setup lang="ts">
+import { onBeforeMount, onMounted, onUnmounted, onUpdated } from 'vue';
+import CounterView from './components/CounterView.vue';
 import HelloWorld from './components/HelloWorld.vue';
 const demo = "toto"
+
+
+
+onBeforeMount(() => {
+  console.log("pas encore monté")
+})
+
+onMounted(() => {
+  console.log("monté")
+})
+
+onUpdated(() => {
+  console.log("mis à jour")
+})
+
+onUnmounted(() => {
+  console.log("démonté")
+})
 
 </script>
 
 <template>
   <main>
-    <HelloWorld :demo="demo">
-      <template #header>
-        <h2>mon header</h2>
-      </template>
-      <template #default>
-        <p>content</p>
-      </template>
-      <template #footer>
-        <p>footer</p>
-      </template>
-    </HelloWorld>
+    <CounterView></CounterView>
   </main>
 </template>
 
