@@ -1,35 +1,10 @@
 <script setup lang="ts">
-import { onBeforeMount, onMounted, onUnmounted, onUpdated } from 'vue';
-import CounterView from './components/CounterView.vue';
-import HelloWorld from './components/HelloWorld.vue';
-import PlanetView from './views/PlanetView.vue';
-import PeopleView from './views/PeopleView.vue';
-const demo = "toto"
-
-
-
-onBeforeMount(() => {
-  console.log("pas encore monté")
-})
-
-onMounted(() => {
-  console.log("monté")
-})
-
-onUpdated(() => {
-  console.log("mis à jour")
-})
-
-onUnmounted(() => {
-  console.log("démonté")
-})
 
 </script>
 
 <template>
   <main>
-    <PeopleView></PeopleView>
-
+    <RouterView></RouterView>
   </main>
 </template>
 

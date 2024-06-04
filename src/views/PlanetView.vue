@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import type { PlanetResponse } from '@/types/planet.type';
 import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+const router = useRouter()
+const route = useRoute()
+
+console.log(router)
+console.log(route)
 
 const planets = ref<PlanetResponse>({
     count: 0,
@@ -31,6 +37,12 @@ onMounted(() => {
 </script>
 
 <template>
+
+    <RouterLink to="/people">aller sur les people</RouterLink>
+
+    <button @click="router.push('/people')"></button>
+
+
     <div class="loading" v-if="loading">
 
     </div>
