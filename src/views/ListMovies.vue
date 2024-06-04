@@ -1,25 +1,18 @@
 <script setup lang="ts">
-import { deleteMovieById, getMovies } from '@/services/movies.services';
+import useFetch from '@/composables/useFetch';
+import { deleteMovieById } from '@/services/movies.services';
 import { type Movie } from '@/types/movies.type';
-import { onMounted, ref } from 'vue';
 
-const movies = ref<Movie[]>([]);
+const {
+    data: movies,
+    refetch
+} = useFetch<Movie[]>('https://crudcrud.com/api/9483b9bbbde446c4a634a2ec6a626a79/movies');
 
-onMounted(() => {
-    getMovies().then((response) => {
-        console.log(response);
-        movies.value = response
-    });
-})
-
-const deleteMovie = async (id: string) => {
+const deleteItem = async (id: string) => {
     await deleteMovieById(id)
-    movies.value = movies.value.filter(movie => movie._id !== id)
+    refetch()
 }
-
-
 </script>
-
 
 <template>
     <div>
@@ -29,7 +22,7 @@ const deleteMovie = async (id: string) => {
                 <h2>{{ movie.title }}</h2>
                 <p>{{ movie.director }}</p>
                 <p>{{ movie.description }}</p>
-                <button @click="deleteMovie(movie._id)">delete</button>
+                <button @click="deleteItem(movie._id)">delete</button>
             </li>
         </ul>
     </div>
