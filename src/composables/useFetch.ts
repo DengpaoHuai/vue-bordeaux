@@ -1,5 +1,6 @@
 import { onMounted, ref, type UnwrapRef } from 'vue'
 
+//const useFetch = <T, U extends T[]>(url: string) => {
 const useFetch = <T>(url: string) => {
   const data = ref<T | null>(null)
 
@@ -10,6 +11,12 @@ const useFetch = <T>(url: string) => {
         data.value = results
       })
   }
+
+  /*
+  const deleteItemById = async (id: string) => {
+    if (!data.value) return
+    data.value = data.value.filter((item: any) => item._id !== id)
+  }*/
 
   onMounted(() => {
     getData()

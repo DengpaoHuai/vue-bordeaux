@@ -1,28 +1,25 @@
 <script setup lang="ts">
-import useFetch from '@/composables/useFetch';
-import { deleteMovieById } from '@/services/movies.services';
+import { deleteMovieById, getMovies } from '@/services/movies.services';
+import useMovies from '@/store/useMovies';
 import { type Movie } from '@/types/movies.type';
+import { onMounted, ref } from 'vue';
 
-const {
-    data: movies,
-    refetch
-} = useFetch<Movie[]>('https://crudcrud.com/api/9483b9bbbde446c4a634a2ec6a626a79/movies');
+const movies = useMovies()
 
-const deleteItem = async (id: string) => {
-    await deleteMovieById(id)
-    refetch()
-}
+
+
 </script>
+
 
 <template>
     <div>
         <h1>List of Movies</h1>
+        <RouterLink to="/create/movie">Create Movie</RouterLink>
         <ul>
-            <li v-for="movie in movies" :key="movie._id">
+            <li v-for="movie in movies.movies" :key="movie._id">
                 <h2>{{ movie.title }}</h2>
                 <p>{{ movie.director }}</p>
                 <p>{{ movie.description }}</p>
-                <button @click="deleteItem(movie._id)">delete</button>
             </li>
         </ul>
     </div>

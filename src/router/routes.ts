@@ -20,17 +20,33 @@ const routes = [
   },
   {
     path: '/create/movie',
-    component: CreateMovie
+    component: CreateMovie,
+    meta: {
+      requiresAuth: true
+    }
   },
   {
     path: '/list_movies',
-    component: ListMovies
+    component: ListMovies,
+    meta: {
+      requiresAuth: true
+    }
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes: routes
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth) {
+    const token = localStorage.getItem('token')
+    if (!token) {
+      next('/')
+    }
+  }
+  next()
 })
 
 export default router

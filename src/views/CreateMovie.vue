@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { createMovie } from '@/services/movies.services';
+import useMovies from '@/store/useMovies';
 import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
-
 const form = reactive({
     title: "",
     director: "",
@@ -12,11 +12,15 @@ const form = reactive({
 
 })
 
+const { movies, addMovie } = useMovies()
+
+
 const onSubmit = async () => {
     console.log(form)
 
     const data = await createMovie(form)
     console.log(data)
+    addMovie(data)
     router.push("/list_movies")
 }
 

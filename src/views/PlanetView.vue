@@ -38,9 +38,9 @@ onMounted(() => {
 
 <template>
 
-    <RouterLink to="/people">aller sur les people</RouterLink>
+    <RouterLink to="/list_movies">aller sur les people</RouterLink>
 
-    <button @click="router.push('/people')"></button>
+    <button @click="router.push('/movies_list')"></button>
 
 
     <div class="loading" v-if="loading">
