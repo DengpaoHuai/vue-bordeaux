@@ -28,8 +28,7 @@ onUnmounted(() => {
 
 <template>
   <main>
-    <CounterView></CounterView>
-    <PlanetView></PlanetView>
+    <PeopleView></PeopleView>
 
   </main>
 </template>

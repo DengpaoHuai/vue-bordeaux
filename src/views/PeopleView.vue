@@ -1,33 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import ListMachin from '../components/ListMachin.vue';
+import useFetch from '@/composables/useFetch';
+import type { PeopleResponse } from '@/types/people.type';
 
-type People = {
-    name: string;
-    size: number;
-}
-
-const people = ref<People[]>([
-    {
-        name: "Demo",
-        size: 150000
-    },
-    {
-        name: "Demo 1",
-        size: 150000
-    },
-    {
-        name: "Demo 2",
-        size: 150000
-    }
-])
-
+const peopleResponse = useFetch<PeopleResponse>("https://swapi.dev/api/people")
 
 </script>
 
 <template>
-
-    <ListMachin :list="people" keyObject="name"></ListMachin>
-
-
+    <div v-for="(people, index) in peopleResponse?.results" :key="index">
+        <p>
+            Name : {{ people.name }} <br>
+            Height : {{ people.height }} <br>
+            Mass : {{ people.mass }} <br>
+            Hair color : {{ people.hair_color }}
+        </p>
+    </div>
+    <button>previous</button>
+    <button>next</button>
 </template>

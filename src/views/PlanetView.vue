@@ -1,30 +1,6 @@
 <script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue';
-
-
-type Planet = {
-    name: string
-    diameter: string
-    climate: string
-    terrain: string
-    population: string
-    gravity: string
-    orbital_period: string
-    rotation_period: string
-    surface_water: string
-    films: string[]
-    residents: string[]
-    created: string
-    edited: string
-    url: string
-}
-
-type PlanetResponse = {
-    count: number
-    next: string | undefined
-    previous: string | undefined
-    results: Planet[]
-}
+import type { PlanetResponse } from '@/types/planet.type';
+import { onMounted, ref } from 'vue';
 
 const planets = ref<PlanetResponse>({
     count: 0,
@@ -36,7 +12,6 @@ const loading = ref(true)
 
 const getData = async (url: string) => {
     loading.value = true
-
     await sleep(500)
     const response = await fetch(url)
     const results: PlanetResponse = await response.json()
@@ -53,9 +28,6 @@ onMounted(() => {
 
 })
 
-
-
-
 </script>
 
 <template>
@@ -70,7 +42,6 @@ onMounted(() => {
     </button>
 
     <button @click="planets.next && getData(planets.next)" :disabled="!planets.next">
-
         Next
     </button>
 
