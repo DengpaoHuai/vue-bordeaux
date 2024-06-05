@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router';
-
+import CustomButton from './components/ui/CustomButton.vue';
 const router = useRouter()
+
+const handleClick = (e) => {
+  console.log(e)
+}
+
 </script>
 
 <template>
   <main>
+    <CustomButton @eventcustom="handleClick" content="mon titre"></CustomButton>
     <RouterView></RouterView>
   </main>
 </template>

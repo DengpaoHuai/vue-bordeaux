@@ -10,6 +10,7 @@ const { demo } = defineProps<PropsType>()
         <slot name="header"></slot>
         <h1>
             {{ demo && "trop long" }}
+            world
         </h1>
         <slot></slot>
         <slot name="footer"></slot>

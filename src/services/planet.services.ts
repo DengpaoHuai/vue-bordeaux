@@ -48,3 +48,7 @@ export const deletePlanet = async (id: string) => {
   })
   await response.json()
 }
+
+export const addition = (a: number, b: number): number => {
+  return a + b
+}

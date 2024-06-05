@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { getMovieById } from '@/services/movies.services';
+import { getMovieById, updateMovieById } from '@/services/movies.services';
 import useMovies from '@/store/useMovies';
 import { useQuery } from '@tanstack/vue-query';
 import { onMounted, reactive, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
-
+import CustomInput from '../components/ui/CustomInput.vue';
 const router = useRouter()
 const route = useRoute()
 const id = route.params.id as string
@@ -34,7 +34,7 @@ onMounted(getData)
 
 const onSubmit = async () => {
     console.log(form)
-    // await updateMovie(route.params.id, form)
+    await updateMovieById(id, form)
     router.push("/list_movies")
 }
 
@@ -43,9 +43,9 @@ const onSubmit = async () => {
 
 <template>
     <form @submit.prevent="onSubmit">
-        <input v-model="form.title" name="title" type="text" placeholder="Title" />
-        <input v-model="form.director" name="director" type="text" placeholder="Director" />
-        <input v-model="form.description" name="description" type="text" placeholder="Description" />
+        <CustomInput v-model="form.title"></CustomInput>
+        <CustomInput v-model="form.director"></CustomInput>
+        <CustomInput v-model="form.description"></CustomInput>
         <button>display values</button>
     </form>
 </template>
