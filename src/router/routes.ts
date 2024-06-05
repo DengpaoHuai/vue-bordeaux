@@ -12,7 +12,10 @@ import { getMovieById } from '@/services/movies.services'
 const routes = [
   {
     path: '/',
-    component: PlanetView
+    component: PlanetView,
+    meta: {
+      layout: 'MainLayout'
+    }
   },
   {
     path: '/people',
@@ -33,7 +36,8 @@ const routes = [
     path: '/list_movies',
     component: ListMovies,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      layout: 'default'
     }
   },
   {

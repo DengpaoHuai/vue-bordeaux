@@ -12,7 +12,12 @@ const emit = defineEmits(['update:modelValue'])
 
 <template>
 
-    <input :value="modelValue" @input="e => emit('update:modelValue', e.target.value)" type="text" />
+    <input :value="modelValue" @input="(e: Event) => {
+        if (e.target) {
+            let { value } = e.target as HTMLInputElement
+            emit('update:modelValue', value)
+        }
+    }" type="text" />
 
 </template>
 

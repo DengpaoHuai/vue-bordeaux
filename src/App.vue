@@ -1,18 +1,26 @@
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
-import CustomButton from './components/ui/CustomButton.vue';
-const router = useRouter()
+import { inject } from 'vue';
+import { useRoute } from 'vue-router';
 
-const handleClick = (e) => {
-  console.log(e)
-}
+const route = useRoute();
 
+console.log(route)
+
+const graphik = inject('graphik');
+console.log(graphik)
+
+
+const display = inject('display');
 </script>
 
 <template>
   <main>
-    <CustomButton @eventcustom="handleClick" content="mon titre"></CustomButton>
-    <RouterView></RouterView>
+    <component :is="route.meta.layout ?? 'DefaultLayout'">
+
+      <RouterView></RouterView>
+
+    </component>
+    <CustomGraphikButton></CustomGraphikButton>
   </main>
 </template>
 

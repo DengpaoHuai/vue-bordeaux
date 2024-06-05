@@ -43,10 +43,30 @@ const demo = await getData()
 type DeletePlanetFn = (id: string) => Promise<void>
 
 export const deletePlanet = async (id: string) => {
-  const response = await fetch(`https://swapi.dev/api/planets/${id}`, {
-    method: 'DELETE'
-  })
-  await response.json()
+  try {
+    const response = await fetch(`https://swapi.dev/api/planets/${id}`, {
+      method: 'DELETE'
+    })
+    await response.json()
+  } catch (error: unknown) {
+    //narrowing
+    if (error instanceof Error) {
+      console.error(error.message)
+      logger(error.message)
+    }
+    if (typeof error === 'string') {
+      console.error(error)
+      logger(error)
+    } else {
+      console.error('unknown error')
+      logger('unknown error')
+    }
+  }
+  return 'ok'
+}
+
+const logger = (message: string) => {
+  console.log(message)
 }
 
 export const addition = (a: number, b: number): number => {

@@ -43,7 +43,8 @@ const onSubmit = async () => {
 
 <template>
     <form @submit.prevent="onSubmit">
-        <CustomInput v-model="form.title"></CustomInput>
+        <input type="text" v-model="form.title" />
+
         <CustomInput v-model="form.director"></CustomInput>
         <CustomInput v-model="form.description"></CustomInput>
         <button>display values</button>
