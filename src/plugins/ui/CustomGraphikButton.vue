@@ -10,7 +10,7 @@ const { content } = defineProps<PropsType>()
 
 
 <template>
-    <button @click="e => emit('eventcustom', e)" class="custom-button">
+    <button @click="(e: MouseEvent) => emit('eventcustom', e)" class="custom-button">
         {{ content }}
     </button>
 </template>

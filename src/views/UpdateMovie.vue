@@ -6,14 +6,16 @@ import { onMounted, reactive, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useRouter } from 'vue-router';
 import CustomInput from '../components/ui/CustomInput.vue';
+import { z } from 'zod';
 const router = useRouter()
 const route = useRoute()
 const id = route.params.id as string
-
+import { movieSchema } from '@/types/movies.type';
 const { data } = useQuery({
     queryKey: ['movie', id],
     queryFn: () => getMovieById(id),
 })
+
 
 
 const form = reactive({
@@ -33,6 +35,9 @@ const getData = () => {
 onMounted(getData)
 
 const onSubmit = async () => {
+    const result = movieSchema.omit({ _id: true }).safeParse(form)
+    console.log(result)
+    return
     console.log(form)
     await updateMovieById(id, form)
     router.push("/list_movies")
