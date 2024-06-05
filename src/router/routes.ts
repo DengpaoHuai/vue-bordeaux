@@ -4,6 +4,10 @@ import PersonView from '@/views/PersonView.vue'
 import CreateMovie from '@/views/CreateMovie.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import ListMovies from '@/views/ListMovies.vue'
+import UpdateMovie from '@/views/UpdateMovie.vue'
+import useMovies from '@/store/useMovies'
+import { queryClient } from '@/main'
+import { getMovieById } from '@/services/movies.services'
 
 const routes = [
   {
@@ -30,6 +34,19 @@ const routes = [
     component: ListMovies,
     meta: {
       requiresAuth: true
+    }
+  },
+  {
+    path: '/udpate/:id',
+    name: 'EditMovie',
+    component: UpdateMovie,
+    beforeEnter: async (to, from, next) => {
+      const id = to.params.id
+      await queryClient.prefetchQuery({
+        queryKey: ['movie', id],
+        queryFn: () => getMovieById(id)
+      })
+      next()
     }
   }
 ]

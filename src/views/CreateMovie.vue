@@ -5,6 +5,8 @@ import { reactive } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter()
+const { addMovie } = useMovies()
+
 const form = reactive({
     title: "",
     director: "",
@@ -12,15 +14,9 @@ const form = reactive({
 
 })
 
-const { movies, addMovie } = useMovies()
-
-
 const onSubmit = async () => {
     console.log(form)
-
-    const data = await createMovie(form)
-    console.log(data)
-    addMovie(data)
+    await addMovie(form)
     router.push("/list_movies")
 }
 

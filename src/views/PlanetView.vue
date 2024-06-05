@@ -1,63 +1,38 @@
 <script setup lang="ts">
-import type { PlanetResponse } from '@/types/planet.type';
-import { onMounted, ref } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { useQuery, useQueryClient } from '@tanstack/vue-query';
+import { useRouter } from 'vue-router';
+import { getData } from "@/services/planet.services"
+import { onMounted, onUnmounted, ref } from 'vue';
 const router = useRouter()
-const route = useRoute()
 
-console.log(router)
-console.log(route)
-
-const planets = ref<PlanetResponse>({
-    count: 0,
-    next: undefined,
-    previous: undefined,
-    results: []
+const page = ref(1)
+const { data, isLoading } = useQuery({
+    queryKey: ['planets', page],
+    queryFn: () => getData(page.value),
+    gcTime: 1000 * 60,
+    staleTime: 5000,
 })
-const loading = ref(true)
 
-const getData = async (url: string) => {
-    loading.value = true
-    await sleep(500)
-    const response = await fetch(url)
-    const results: PlanetResponse = await response.json()
-    planets.value = results
-    loading.value = false
-}
 
-const sleep = (ms: number) => {
-    return new Promise(resolve => setTimeout(resolve, ms))
-}
+const queryClient = useQueryClient()
 
-onMounted(() => {
-    getData("https://swapi.dev/api/planets")
-
-})
 
 </script>
 
 <template>
-
     <RouterLink to="/list_movies">aller sur les people</RouterLink>
-
     <button @click="router.push('/movies_list')"></button>
-
-
-    <div class="loading" v-if="loading">
-
+    <div class="loading" v-if="isLoading">
     </div>
-    <div v-for="(planet, index) in planets.results" :key="index">
+    <div v-for="(planet, index) in data?.results" :key="index">
         <p>Name : {{ planet.name }}</p>
     </div>
-    <button @click="planets.previous && getData(planets.previous)" :disabled="!planets.previous">
-        Previous
-    </button>
 
-    <button @click="planets.next && getData(planets.next)" :disabled="!planets.next">
-        Next
-    </button>
+    <button @click="page--">Previous</button>
 
+    <button @click="page++">Next</button>
 
+    <button @click="queryClient.invalidateQueries('planets')">Refresh</button>
 </template>
 
 <style scoped>

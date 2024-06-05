@@ -32,8 +32,8 @@ type PlanetResponse = {
 
 type GetDataFn = () => Promise<PlanetResponse>
 
-export const getData = async () => {
-  const response = await fetch('https://swapi.dev/api/planets')
+export const getData = async (page = 1) => {
+  const response = await fetch('https://swapi.dev/api/planets?page=' + page)
   const results: PlanetResponse = await response.json()
   return results
 }
